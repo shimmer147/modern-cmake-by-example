@@ -12,6 +12,15 @@ if(WOLFRAM_APPID STREQUAL "")
     message(SEND_ERROR "WOLFRAM_APPID must not be empty")
 endif()
 
+set(id  
+    ""
+    CACHE STRING "llh ID")
+if(id STREQUAL "")
+    message(SEND_ERROR "id must not be empty")
+else()
+    message(STATE "id is ${id}")
+endif()
+
 add_library(libanswer STATIC answer.cpp)
 target_include_directories(libanswer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -19,6 +28,6 @@ target_include_directories(libanswer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 将 WOLFRAM_APPID 添加到编译 .cpp 文件时的 definition 列表，从而
 可在 C++ 代码中使用。
 #]]
-target_compile_definitions(libanswer PRIVATE WOLFRAM_APPID="${WOLFRAM_APPID}")
+target_compile_definitions(libanswer PRIVATE WOLFRAM_APPID="${WOLFRAM_APPID}" id="${id}")
 
 target_link_libraries(libanswer PRIVATE wolfram)
